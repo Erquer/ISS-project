@@ -1,16 +1,23 @@
-# This is a sample Python script.
+import matplotlib.pyplot as plt
+from math import sqrt
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+Ts = 0.01
+Tstop = 5
+t = [i*Ts for i in range(0, int(Tstop/Ts))]
+
+k = len(t)
+
+beta = 0.7
+A = 1.0
+
+Qd = (k-1)*[1]
+Qd.insert(0, 0)
+
+h = k*[0]
+
+for n in range(k-1):
+    h[n+1] = (Ts / A) * Qd[n] - Ts * beta/A * sqrt(h[n]) + h[n]
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+plt.plot(t, h)
+plt.show()
