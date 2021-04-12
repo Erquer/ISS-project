@@ -4,10 +4,11 @@
     "es2021": true
   },
   "extends": [
+    "airbnb",
+    "airbnb/hooks",
     "eslint:recommended",
     "plugin:react/recommended",
-    "airbnb",
-    "airbnb/hooks"
+    "prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -17,5 +18,9 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "react/jsx-props-no-spreading": 0
+  },
+  "parser": "babel-eslint"
 }
