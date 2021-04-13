@@ -7,7 +7,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  h1, h2, h3, h4, h5, p {
+  h1, h2, h3, h4, h5, p, button, form, label, input {
     font-family: 'Roboto', sans-serif;
   }
 
@@ -15,6 +15,18 @@ const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.textLight};
     font-weight: 700;
     font-size: 36px;
+  }
+  
+  label, input {
+    color: ${({ theme }) => theme.primary};
+    font-weight: 700;
+    font-size: 1.125em;
+  }
+
+  button {
+    color: ${({ theme }) => theme.text};
+    font-weight: 700;
+    font-size: 1.125em;
   }
 `;
 

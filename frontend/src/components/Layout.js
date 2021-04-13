@@ -24,17 +24,11 @@ const Card = styled.div`
 const ChartCard = styled(Card)`
   grid-column: 2/4;
   justify-self: center;
-
-  width: 800px;
-  height: 400px;
 `;
 
 const PanelCard = styled(Card)`
   grid-column: 1;
   justify-self: end;
-
-  width: 450px;
-  height: 900px;
 `;
 
 const Layout = ({ panel, chart }) => (
