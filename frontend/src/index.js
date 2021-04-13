@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme.styled';
 import ResetStyles from './styles/reset.styled';
 import GlobalStyles from './styles/global.styled';
-import App from './App';
+import App from './components/App';
 
 ReactDOM.render(
   <React.StrictMode>

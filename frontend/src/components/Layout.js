@@ -1,7 +1,8 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Layout = styled.div`
+const StyledLayout = styled.div`
   display: grid;
   grid-auto-columns: 3;
   align-items: center;
@@ -20,15 +21,7 @@ const Card = styled.div`
   background-color: ${({ theme }) => theme.backgroundLight};
 `;
 
-const Panel = styled(Card)`
-  grid-column: 1;
-  justify-self: end;
-
-  width: 450px;
-  height: 900px;
-`;
-
-const Chart = styled(Card)`
+const ChartCard = styled(Card)`
   grid-column: 2/4;
   justify-self: center;
 
@@ -36,15 +29,24 @@ const Chart = styled(Card)`
   height: 400px;
 `;
 
-const App = () => (
-  <Layout>
-    <Panel>
-      <h1>ProjektISS</h1>
-    </Panel>
-    <Chart>
-      <h1>Wykres</h1>
-    </Chart>
-  </Layout>
+const PanelCard = styled(Card)`
+  grid-column: 1;
+  justify-self: end;
+
+  width: 450px;
+  height: 900px;
+`;
+
+const Layout = ({ panel, chart }) => (
+  <StyledLayout>
+    <PanelCard>{panel}</PanelCard>
+    <ChartCard>{chart}</ChartCard>
+  </StyledLayout>
 );
 
-export default App;
+Layout.propTypes = {
+  panel: propTypes.node.isRequired,
+  chart: propTypes.node.isRequired,
+};
+
+export default Layout;
