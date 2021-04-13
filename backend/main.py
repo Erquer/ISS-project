@@ -4,16 +4,16 @@ from flask.json import jsonify
 app = Flask(__name__)
 
 
-def simulateProcess(precessData: dict):
+def simulateProcess(params: dict):
     from math import sqrt
-    Ts = float(precessData['samplingTime'])
-    Tstop = float(precessData['durationTime'])
+    Ts = float(params['samplingTime'])
+    Tstop = float(params['durationTime'])
     t = [i*Ts for i in range(0, int(Tstop/Ts))]
 
     k = len(t)
 
-    beta = float(precessData['beta'])
-    A = float(precessData['A'])
+    beta = float(params['beta'])
+    A = float(params['A'])
 
     Qd = (k-1)*[1]
     Qd.insert(0, 0)
