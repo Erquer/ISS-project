@@ -17,9 +17,10 @@ import {
 const Panel = () => {
   const { register, handleSubmit, watch } = useForm({
     defaultValues: {
-      samplingTime: 50,
+      samplingTime: 1,
       durationTime: 50,
       beta: 1.0,
+      A: 1.0,
       tankCapacity: 100,
       parameter: 1000,
       anotherParameter: 50,
@@ -27,7 +28,7 @@ const Panel = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data, JSON.stringify(data));
   };
 
   return (
@@ -36,12 +37,13 @@ const Panel = () => {
 
       <Form action="submit">
         <SliderLabel htmlFor="sampling-time">
-          Czas próbkowania
+          Czas próbkowania [Ts]
           <Wrapper>
             <Slider
               type="range"
-              min={0}
-              max={100}
+              min={0.01}
+              max={1}
+              step={0.01}
               {...register('samplingTime')}
             />
             <Value>{watch('samplingTime')}</Value>
@@ -49,11 +51,11 @@ const Panel = () => {
         </SliderLabel>
 
         <SliderLabel htmlFor="durationTime">
-          Czas trwania
+          Czas trwania [T]
           <Wrapper>
             <Slider
               type="range"
-              min={0}
+              min={1}
               max={100}
               {...register('durationTime')}
             />
@@ -62,7 +64,7 @@ const Panel = () => {
         </SliderLabel>
 
         <SliderLabel htmlFor="beta">
-          Wzmocnienie
+          Wzmocnienie [beta]
           <Wrapper>
             <Slider
               type="range"
@@ -72,6 +74,20 @@ const Panel = () => {
               {...register('beta')}
             />
             <Value>{watch('beta')}</Value>
+          </Wrapper>
+        </SliderLabel>
+
+        <SliderLabel htmlFor="A">
+          A
+          <Wrapper>
+            <Slider
+              type="range"
+              min={0}
+              max={2}
+              step={0.01}
+              {...register('A')}
+            />
+            <Value>{watch('A')}</Value>
           </Wrapper>
         </SliderLabel>
 

@@ -19,7 +19,7 @@ const Form = styled.form`
   flex-direction: column;
   padding: 0 60px;
 
-  & :nth-child(4) {
+  & :nth-child(5) {
     margin-top: 30px;
   }
 `;
