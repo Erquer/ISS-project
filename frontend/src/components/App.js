@@ -1,5 +1,5 @@
 import React from 'react';
-import Panel from './Panel';
+import Panel from './Panel/Panel';
 import Chart from './Chart';
 import Layout from './Layout';
 

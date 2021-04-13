@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const PanelWrapper = styled.div`
@@ -69,7 +68,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   text-align: center;
-  width: 50px;
+  width: 80px;
   height: 30px;
   background-color: ${({ theme }) => theme.secondary};
   outline: none;
@@ -106,52 +105,15 @@ const Value = styled.span`
   margin-bottom: -3px;
 `;
 
-const Panel = () => (
-  <PanelWrapper>
-    <H1>Projekt ISS</H1>
-    <Form action="submit">
-      <SliderLabel htmlFor="sampling-time">
-        Czas próbkowania
-        <Wrapper>
-          <Slider type="range" name="samplingTime" />
-          <Value>21</Value>
-        </Wrapper>
-      </SliderLabel>
-
-      <SliderLabel htmlFor="total-time">
-        Czas trwania
-        <Wrapper>
-          <Slider type="range" name="totalTime" />
-          <Value>21</Value>
-        </Wrapper>
-      </SliderLabel>
-
-      <SliderLabel htmlFor="total-time">
-        Wzmocnienie
-        <Wrapper>
-          <Slider type="range" name="beta" />
-          <Value>21</Value>
-        </Wrapper>
-      </SliderLabel>
-
-      <Label htmlFor="total-time">
-        Poziom zbiornika
-        <Input value="1.0" type="text" name="beta" />
-      </Label>
-
-      <Label htmlFor="total-time">
-        Parametr
-        <Input value="10.0" type="text" name="beta" />
-      </Label>
-
-      <Label htmlFor="total-time">
-        Coś tam
-        <Input value="20.0" type="text" name="beta" />
-      </Label>
-
-      <Button>GENERUJ</Button>
-    </Form>
-  </PanelWrapper>
-);
-
-export default Panel;
+export {
+  Value,
+  Wrapper,
+  Button,
+  Input,
+  Label,
+  Slider,
+  SliderLabel,
+  Form,
+  H1,
+  PanelWrapper,
+};
