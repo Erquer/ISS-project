@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import propTypes from 'prop-types';
 import urls from '../../services/urls';
+
 import {
   PanelWrapper,
   H1,
@@ -13,7 +16,7 @@ import {
   Button,
 } from './Panel.styled';
 
-const Panel = () => {
+const Panel = ({ setSimulationData }) => {
   const inputs = [
     {
       label: 'Czas próbkowania [Ts]',
@@ -45,7 +48,6 @@ const Panel = () => {
   ];
 
   const [isLoading, setIsLoading] = useState(false);
-  // const [simulationData, setSimulationData] = useState({});
 
   const { register, handleSubmit, watch } = useForm({
     defaultValues: {
@@ -59,8 +61,8 @@ const Panel = () => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     const response = await axios.post(urls.simulationData, data);
+    setSimulationData(response.data);
     setIsLoading(false);
-    console.log(response.data);
   };
 
   return (
@@ -78,10 +80,14 @@ const Panel = () => {
           </SliderLabel>
         ))}
 
-        <Button>{isLoading ? 'CZEKAJ' : 'GENERUJ'}</Button>
+        <Button disabled={isLoading}>{isLoading ? 'CZEKAJ' : 'GENERUJ'}</Button>
       </Form>
     </PanelWrapper>
   );
+};
+
+Panel.propTypes = {
+  setSimulationData: propTypes.func.isRequired,
 };
 
 export default Panel;
