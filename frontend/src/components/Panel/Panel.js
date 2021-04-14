@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import propTypes from 'prop-types';
-import urls from '../../services/urls';
+import post from '../../services/restService';
 
 import {
   PanelWrapper,
@@ -60,7 +59,7 @@ const Panel = ({ setSimulationData }) => {
 
   const onSubmit = async (data) => {
     setIsLoading(true);
-    const response = await axios.post(urls.simulationData, data);
+    const response = await post(data);
     setSimulationData(response.data);
     setIsLoading(false);
   };
