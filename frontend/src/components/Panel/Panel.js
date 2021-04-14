@@ -9,8 +9,6 @@ import {
   Wrapper,
   Slider,
   Value,
-  Label,
-  Input,
   Button,
 } from './Panel.styled';
 
@@ -21,11 +19,38 @@ const Panel = () => {
       durationTime: 50,
       beta: 1.0,
       A: 1.0,
-      tankCapacity: 100,
-      parameter: 1000,
-      anotherParameter: 50,
     },
   });
+
+  const inputs = [
+    {
+      label: 'Czas próbkowania [Ts]',
+      name: 'samplingTime',
+      min: 0.01,
+      max: 1,
+      step: 0.01,
+    },
+    {
+      label: 'Czas trwania [T]',
+      name: 'durationTime',
+      min: 1,
+      max: 100,
+    },
+    {
+      label: 'Wzmocnienie [beta]',
+      name: 'beta',
+      min: 0,
+      max: 1,
+      step: 0.01,
+    },
+    {
+      label: 'Pole przekroju [A]',
+      name: 'A',
+      min: 0,
+      max: 2,
+      step: 0.01,
+    },
+  ];
 
   const onSubmit = (data) => {
     console.log(data, JSON.stringify(data));
@@ -36,96 +61,15 @@ const Panel = () => {
       <H1>Projekt ISS</H1>
 
       <Form action="submit">
-        <SliderLabel htmlFor="sampling-time">
-          Czas próbkowania [Ts]
-          <Wrapper>
-            <Slider
-              type="range"
-              min={0.01}
-              max={1}
-              step={0.01}
-              {...register('samplingTime')}
-            />
-            <Value>{watch('samplingTime')}</Value>
-          </Wrapper>
-        </SliderLabel>
-
-        <SliderLabel htmlFor="durationTime">
-          Czas trwania [T]
-          <Wrapper>
-            <Slider
-              type="range"
-              min={1}
-              max={100}
-              {...register('durationTime')}
-            />
-            <Value>{watch('durationTime')}</Value>
-          </Wrapper>
-        </SliderLabel>
-
-        <SliderLabel htmlFor="beta">
-          Wzmocnienie [beta]
-          <Wrapper>
-            <Slider
-              type="range"
-              min={0}
-              max={1}
-              step={0.01}
-              {...register('beta')}
-            />
-            <Value>{watch('beta')}</Value>
-          </Wrapper>
-        </SliderLabel>
-
-        <SliderLabel htmlFor="A">
-          A
-          <Wrapper>
-            <Slider
-              type="range"
-              min={0}
-              max={2}
-              step={0.01}
-              {...register('A')}
-            />
-            <Value>{watch('A')}</Value>
-          </Wrapper>
-        </SliderLabel>
-
-        <Label htmlFor="tankCapacity">
-          Poziom zbiornika
-          <Input
-            type="text"
-            value={watch('tankCapacity')}
-            min={0}
-            max={999999}
-            maxLength={6}
-            {...register('tankCapacity')}
-          />
-        </Label>
-
-        <Label htmlFor="parameter">
-          Parametr
-          <Input
-            type="text"
-            value={watch('parameter')}
-            min={0}
-            max={99999}
-            maxLength={5}
-            {...register('parameter')}
-          />
-        </Label>
-
-        <Label htmlFor="anotherParameter">
-          Kolejny Parametr
-          <Input
-            type="text"
-            value={watch('anotherParameter')}
-            min={0}
-            max={9999}
-            maxLength={4}
-            {...register('anotherParameter')}
-          />
-        </Label>
+        {inputs.map(({ label, name, ...rest }) => (
+          <SliderLabel key={label} htmlFor="sampling-time">
+            {label}
+            <Wrapper>
+              <Slider type="range" {...rest} {...register(name)} />
+              <Value>{watch(name)}</Value>
+            </Wrapper>
+          </SliderLabel>
+        ))}
 
         <Button>GENERUJ</Button>
       </Form>

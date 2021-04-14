@@ -18,10 +18,6 @@ const Form = styled.form`
   align-items: center;
   flex-direction: column;
   padding: 0 60px;
-
-  & :nth-child(5) {
-    margin-top: 30px;
-  }
 `;
 
 const SliderLabel = styled.label`
@@ -57,24 +53,6 @@ const Slider = styled.input`
   }
 `;
 
-const Label = styled.label`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 40px;
-  margin-bottom: 30px;
-`;
-
-const Input = styled.input`
-  text-align: center;
-  width: 80px;
-  height: 30px;
-  background-color: ${({ theme }) => theme.secondary};
-  outline: none;
-  border: none;
-`;
-
 const Button = styled.button`
   position: absolute;
   bottom: 25px;
@@ -105,15 +83,4 @@ const Value = styled.span`
   margin-bottom: -3px;
 `;
 
-export {
-  Value,
-  Wrapper,
-  Button,
-  Input,
-  Label,
-  Slider,
-  SliderLabel,
-  Form,
-  H1,
-  PanelWrapper,
-};
+export { Value, Wrapper, Button, Slider, SliderLabel, Form, H1, PanelWrapper };
