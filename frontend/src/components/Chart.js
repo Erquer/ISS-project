@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import propTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 
@@ -8,26 +8,29 @@ const ChartWrapper = styled.div`
   height: 400px;
 `;
 
-const Chart = ({ simulationData }) => (
-  <ChartWrapper>
-    <Line
-      id="myChart"
-      data={{
-        labels: simulationData.data
-          ? Array(simulationData.data.length).fill(1)
-          : 0,
-        datasets: [
-          {
-            label: 'Wykres regulacji',
-            data: simulationData.data,
-            fill: false,
-            borderColor: '#36A2EB',
-          },
-        ],
-      }}
-    />
-  </ChartWrapper>
-);
+const Chart = ({ simulationData }) => {
+  const theme = useTheme();
+  return (
+    <ChartWrapper>
+      <Line
+        id="myChart"
+        data={{
+          labels: simulationData.data
+            ? Array(simulationData.data.length).fill(1)
+            : 0,
+          datasets: [
+            {
+              label: 'Wykres regulacji',
+              data: simulationData.data,
+              fill: false,
+              borderColor: theme.chart,
+            },
+          ],
+        }}
+      />
+    </ChartWrapper>
+  );
+};
 
 Chart.propTypes = {
   simulationData: propTypes.shape({
