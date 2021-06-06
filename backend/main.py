@@ -101,7 +101,7 @@ def simulate_fuzzy(params: dict):
     # Create inputs and output
     delta = ctrl.Antecedent(universe, 'delta')
     error = ctrl.Antecedent(universe, 'error')
-    output = ctrl.Antecedent(universe, 'output')
+    output = ctrl.Consequent(universe, 'output')
 
     # names for rules.
     names = ['nb', 'ns', 'ze', 'ps', 'pb']
@@ -109,7 +109,7 @@ def simulate_fuzzy(params: dict):
     delta.automf(names=names)
     error.automf(names=names)
     output.automf(names=names)
-
+    error['ze'].view()
     # Defining rules for fuzzy logic
     rule0 = ctrl.Rule(antecedent=((error['nb'] & delta['nb']) |
                                   (error['ns'] & delta['nb']) |
@@ -170,7 +170,6 @@ def simulate_fuzzy(params: dict):
         t.append(Tacc)
         hs.append(h)
         e_n = hz - h
-        print(f'In while at {Tacc}')
         # simulation computations
         sim.input['error'] = e
         sim.input['delta'] = (e_n - e) / Ts
@@ -207,7 +206,7 @@ def simulate_fuzzy(params: dict):
 
 simulate_PID({'beta': 0.2, 'samplingTime': 0.2, 'durationTime': 10.0, 'A': 3, 'h': 1.5})
 
-simulate_fuzzy({'beta': 0.2, 'samplingTime': 0.2, 'durationTime': 10.0, 'A': 2, 'h': 1})
+simulate_fuzzy({'beta': 0.2, 'samplingTime': 0.1, 'durationTime': 10.0, 'A': 3, 'h': 1})
 
 
 @app.route('/simulation', methods=['POST'])
@@ -225,4 +224,13 @@ def simulationPID():
         print(request.json)
         return jsonify({
             data: simulate_PID(request.json)
+        })
+
+
+@app.route('/simulationFuzzy', methods=['POST'])
+def simulationFuzzy():
+    if request.method == 'POST':
+        print(request.json)
+        return jsonify({
+            data: simulate_fuzzy(request.json)
         })
