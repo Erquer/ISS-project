@@ -74,6 +74,7 @@ const Panel = ({ setSimulationData }) => {
       durationTime: 50,
       beta: 1.0,
       A: 1.0,
+      h: 1.0,
     },
   });
 
@@ -83,6 +84,7 @@ const Panel = ({ setSimulationData }) => {
       parseFloat(data.samplingTime),
       parseFloat(data.durationTime)
     );
+    console.log(data)
     let response = {};
     if (document.getElementById('linear').checked) {
       response = await post(data);
