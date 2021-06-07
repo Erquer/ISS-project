@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import propTypes from 'prop-types';
-import post from '../../services/restService';
+import post, { postFuzzy, postPID } from '../../services/restService';
 
 import {
   PanelWrapper,
@@ -13,10 +13,30 @@ import {
   Slider,
   Value,
   Button,
+  RadioButtons,
+  RadioButton,
 } from './Panel.styled';
+
+const getTimestamps = (sampling, duration) => {
+  const timestamps = [];
+  let timestamp = 0;
+  for (let i = 0; i < Math.round(duration / sampling); i += 1) {
+    timestamps.push(Number(timestamp.toFixed(1)));
+    timestamp += sampling;
+  }
+
+  return timestamps;
+};
 
 const Panel = ({ setSimulationData }) => {
   const inputs = [
+    {
+      label: 'Wartość zadana [Hz]',
+      name: 'h',
+      min: 1,
+      max: 5,
+      step: 0.1,
+    },
     {
       label: 'Czas próbkowania [Ts]',
       name: 'samplingTime',
@@ -41,8 +61,8 @@ const Panel = ({ setSimulationData }) => {
       label: 'Pole przekroju [A]',
       name: 'A',
       min: 0,
-      max: 2,
-      step: 0.01,
+      max: 4,
+      step: 0.1,
     },
   ];
 
@@ -59,15 +79,46 @@ const Panel = ({ setSimulationData }) => {
 
   const onSubmit = async (data) => {
     setIsLoading(true);
-    const response = await post(data);
+    const X = getTimestamps(
+      parseFloat(data.samplingTime),
+      parseFloat(data.durationTime)
+    );
+    let response = {};
+    if (document.getElementById('linear').checked) {
+      response = await post(data);
+    } else if (document.getElementById('fuzzy').checked) {
+      response = await postFuzzy(data);
+    } else if (document.getElementById('pid').checked) {
+      response = await postPID(data);
+    }
+    console.log(response);
+
+    response.data.X = X;
     setSimulationData(response.data);
     setIsLoading(false);
   };
 
+  const radioChangeHandler = () => {};
+
   return (
     <PanelWrapper onSubmit={handleSubmit(onSubmit)}>
       <H1>Projekt ISS</H1>
+      <RadioButtons onChange={radioChangeHandler}>
+        <RadioButton htmlFor="linear">
+          Linear
+          <input type="radio" id="linear" name="drone" value="linear" />
+        </RadioButton>
 
+        <RadioButton htmlFor="fuzzy">
+          Fuzzy
+          <input type="radio" id="fuzzy" name="drone" value="fuzzy" />
+        </RadioButton>
+
+        <RadioButton htmlFor="pid">
+          PID
+          <input type="radio" id="pid" name="drone" value="pid" />
+        </RadioButton>
+      </RadioButtons>
       <Form action="submit">
         {inputs.map(({ label, name, ...rest }) => (
           <SliderLabel key={label} htmlFor="sampling-time">

@@ -83,4 +83,32 @@ const Value = styled.span`
   margin-bottom: -3px;
 `;
 
-export { Value, Wrapper, Button, Slider, SliderLabel, Form, H1, PanelWrapper };
+const RadioButtons = styled.div`
+  justify-content: space-evenly;
+  display: flex;
+  margin-bottom: 50px;
+`;
+
+const RadioButton = styled.label`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &,
+  & > input {
+    cursor: pointer;
+  }
+`;
+
+export {
+  Value,
+  Wrapper,
+  Button,
+  Slider,
+  SliderLabel,
+  Form,
+  H1,
+  PanelWrapper,
+  RadioButton,
+  RadioButtons,
+};

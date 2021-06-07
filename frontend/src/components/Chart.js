@@ -15,9 +15,7 @@ const Chart = ({ simulationData }) => {
       <Line
         id="myChart"
         data={{
-          labels: simulationData.data
-            ? Array(simulationData.data.length).fill(1)
-            : 0,
+          labels: simulationData.data ? simulationData.X : 0,
           datasets: [
             {
               label: 'Wykres regulacji',
@@ -35,6 +33,7 @@ const Chart = ({ simulationData }) => {
 Chart.propTypes = {
   simulationData: propTypes.shape({
     data: propTypes.arrayOf(propTypes.number).isRequired,
+    X: propTypes.arrayOf(propTypes.number).isRequired,
   }).isRequired,
 };
 
