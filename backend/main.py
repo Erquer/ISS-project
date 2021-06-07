@@ -26,6 +26,11 @@ def simulate(params: dict):
     h = k * [0]
     for n in range(k - 1):
         h[n + 1] = (Ts / A) * Qd[n] - Ts * beta / A * sqrt(h[n]) + h[n]
+    plt.figure(1)
+    plt.plot(t, h)
+    plt.xlabel("Time (hrs)")
+    plt.ylabel("Height (m)")
+    plt.show()
     return h
 
 
@@ -40,7 +45,7 @@ def simulate_PID(params: dict):
     t = []
     hs = []
     i = 0
-    hmax = 2
+    hmax = 5
     # h zadane
     hz = float(params['h'])
     e = hz - h
@@ -74,19 +79,12 @@ def simulate_PID(params: dict):
         h = (Qd - Q0) * Ts / A + h
 
         if h > hmax:
-            h = 2
+            h = hmax
         elif h < 0:
             h = 0
         i += 1
         Tacc += Ts
         e = e_n
-    print(t, '\n', hs)
-    # plot data
-    plt.figure(1)
-    plt.plot(t, hs)
-    plt.xlabel("Time (hrs)")
-    plt.ylabel("Height (m)")
-    plt.show()
     return hs
 
 
@@ -161,7 +159,7 @@ def simulate_fuzzy(params: dict):
     t = []
     hs = []
     i = 0
-    hmax = 2
+    hmax = 5
     # h zadane
     hz = float(params['h'])
     e = hz - h
@@ -188,25 +186,13 @@ def simulate_fuzzy(params: dict):
         h = (Qd - Q0) * Ts / A + h
 
         if h > hmax:
-            h = 2
+            h = hmax
         elif h < 0:
             h = 0
         i += 1
         Tacc += Ts
         e = e_n
-    print(t, hs)
-    # plot data
-    plt.figure(1)
-    plt.plot(t, hs)
-    plt.xlabel("Time (hrs)")
-    plt.ylabel("Height (m)")
-    plt.show()
     return hs
-
-
-simulate_PID({'beta': 0.2, 'samplingTime': 0.2, 'durationTime': 10.0, 'A': 3, 'h': 1.5})
-
-simulate_fuzzy({'beta': 0.2, 'samplingTime': 0.1, 'durationTime': 10.0, 'A': 3, 'h': 1})
 
 
 @app.route('/simulation', methods=['POST'])
@@ -223,7 +209,7 @@ def simulationPID():
     if request.method == 'POST':
         print(request.json)
         return jsonify({
-            data: simulate_PID(request.json)
+            'data': simulate_PID(request.json)
         })
 
 
@@ -232,5 +218,5 @@ def simulationFuzzy():
     if request.method == 'POST':
         print(request.json)
         return jsonify({
-            data: simulate_fuzzy(request.json)
+            'data': simulate_fuzzy(request.json)
         })

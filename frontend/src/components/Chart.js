@@ -8,6 +8,7 @@ const ChartWrapper = styled.div`
   height: 400px;
 `;
 
+
 const Chart = ({ simulationData }) => {
   const theme = useTheme();
   return (
