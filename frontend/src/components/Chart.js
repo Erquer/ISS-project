@@ -4,8 +4,8 @@ import propTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 
 const ChartWrapper = styled.div`
-  width: 800px;
-  height: 400px;
+  width: 1000px;
+  height: 500px;
 `;
 
 

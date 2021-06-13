@@ -52,9 +52,9 @@ def simulate_PID(params: dict):
     I = 0
 
     # Nastawy wyznaczone eksperymentalnie
-    Kp = 2
-    Ki = 0.1
-    Kd = 1.2
+    Kp = float(params['Kp'])
+    Ki = float(params['Ki'])
+    Kd = float(params['Kd'])
 
     while Tacc <= Tstop:
         t.append(Tacc)
@@ -85,6 +85,11 @@ def simulate_PID(params: dict):
         i += 1
         Tacc += Ts
         e = e_n
+    plt.figure(1)
+    plt.plot(t, hs)
+    plt.xlabel("Time (hrs)")
+    plt.ylabel("Height (m)")
+    plt.show()
     return hs
 
 
@@ -192,6 +197,11 @@ def simulate_fuzzy(params: dict):
         i += 1
         Tacc += Ts
         e = e_n
+    plt.figure(1)
+    plt.plot(t, hs)
+    plt.xlabel("Time (hrs)")
+    plt.ylabel("Height (m)")
+    plt.show()
     return hs
 
 
